@@ -56,10 +56,11 @@ int CARD_DRAWER::Group::ReturnCardByRandom()
 	return result;
 }
 
-CARD_DRAWER::Rule::Rule(bool if_limit, int limit, Group limit_group):
+CARD_DRAWER::Rule::Rule(bool if_limit, int limit, Group limit_group,bool limit_group_return_random):
 	if_limit_(if_limit),
 	limit_(limit),
-	limit_group_(limit_group)
+	limit_group_(limit_group),
+	limit_group_return_random_(limit_group_return_random)
 {
 	assert(if_limit);
 }
@@ -68,4 +69,52 @@ CARD_DRAWER::Rule::Rule(bool if_limit):
 if_limit_(if_limit)
 {
 	assert(!if_limit);
+}
+
+int CARD_DRAWER::Drawer::Draw()
+{
+	if (rule_.if_limit_)
+	{
+		now++;
+		if (now == rule_.limit_)
+		{
+			now = 0;
+			if (rule_.limit_group_return_random_)
+				return rule_.limit_group_.ReturnCardByRandom();
+			else
+				return rule_.limit_group_.ReturnCardByChance();
+			assert(false);
+		}
+	}
+	double  chance_sum = 0;
+	for (auto id : cards_)
+	{
+		chance_sum += Card::GetCard(id).GetChance;
+	}
+	uniform_real_distribution<double> dis(0,chance_sum);
+	default_random_engine e(time(NULL));
+	double result = dis(e);
+
+	for (int id : cards_)
+	{
+		double card_chance = Card::GetCard(id).GetChance;
+		if (card_chance >= result)
+		{
+			return id;
+		}
+		else
+		{
+			result -= card_chance;
+		}
+	}
+	assert(false);
+}
+
+std::vector<int> CARD_DRAWER::Drawer::Draw(int n)
+{
+	vector<int> result;
+	while (n--)
+	{
+
+	}
 }

@@ -34,7 +34,10 @@ namespace CARD_DRAWER
 		bool if_limit_;
 		int limit_;
 		Group limit_group_;
-		Rule(bool if_limit,int limit,Group limit_group);
+		bool limit_group_return_random_;
+		bool draws_protect_;
+		int draws_protect_limit_;
+		Rule(bool if_limit,int limit,Group limit_group,bool limit_group_return_random);
 		Rule(bool if_limit);
 	};
 	class Result
@@ -48,13 +51,14 @@ namespace CARD_DRAWER
 	private:
 		Rule rule_;
 		std::vector<int> cards_;
-		int now;  // 保底计数
-		Card Draw();
-		Card Draw(int n);
+		int now;  // 保底计数 抽前记得置零
+		int Draw();
+		double chance_sum_;
+		std::vector<int> Draw(int n);
 	public:
 		Result StartUntilGetCard();
 		Result StartUntilLimit(int limit);
 		void SetRulr(Rule rule);
-		void AddCard(Card card);
+		void AddCard(int card);
 	};
 }
