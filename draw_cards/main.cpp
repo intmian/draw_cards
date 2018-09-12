@@ -1,12 +1,15 @@
 #include "main.h"
 #include "drawer.h"
-
+#include <ctime>
+#include <cstdlib>
 using namespace CARD_DRAWER;
 using std::vector;
+using std::time;
+using std::rand;
+using std::srand;
 
 int main()
 {
-	printf("»¶Ó­Ê¹ÓÃ³é¿¨Ä£ÄâÆ÷");
-
+	srand(time(NULL));
 	return 0;
 }
