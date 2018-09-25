@@ -44,21 +44,25 @@ namespace CARD_DRAWER
 	{
 	public:
 		std::vector<int> card_get_;
-		int num;
+		int num_;
+		Result(int n,std::vector<int>) :
+		{
+		}
 	};
 	class Drawer
 	{
 	private:
-		Rule rule_;
+		Rule& rule_;
 		std::vector<int> cards_;
 		int now;  // 保底计数 抽前记得置零
 		int Draw();
 		double chance_sum_;
 		std::vector<int> Draw(int n);
+		// 仅负责抽，不负责统计
 	public:
-		Result StartUntilGetCard();
+		Result StartUntilGetCard(vector<int> id);
 		Result StartUntilLimit(int limit);
-		void SetRulr(Rule rule);
-		void AddCard(int card);
+		void SetRule(Rule rule);
+		void AddCard(int card);  // 仅输入id
 	};
 }

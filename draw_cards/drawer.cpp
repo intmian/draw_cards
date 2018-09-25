@@ -73,7 +73,7 @@ if_limit_(if_limit)
 
 int CARD_DRAWER::Drawer::Draw()
 {
-	if (rule_.if_limit_)
+	if (rule_.if_limit_)  // 存在保底的情况下
 	{
 		now++;
 		if (now == rule_.limit_)
@@ -115,6 +115,25 @@ std::vector<int> CARD_DRAWER::Drawer::Draw(int n)
 	vector<int> result;
 	while (n--)
 	{
-
+		result.push_back(Draw());  // 关于其他的规则全部体现在draw 不带参的方法中
 	}
+	return result;
 }
+
+Result CARD_DRAWER::Drawer::StartUntilLimit(int limit)
+{
+	now = 0;
+
+	return Draw(limit);
+}
+
+void CARD_DRAWER::Drawer::SetRule(Rule rule)
+{
+	rule_ = rule;
+}
+
+void CARD_DRAWER::Drawer::AddCard(int card)
+{
+	cards_.push_back(card);
+}
+
