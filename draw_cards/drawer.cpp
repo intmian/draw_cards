@@ -120,11 +120,16 @@ std::vector<int> CARD_DRAWER::Drawer::Draw(int n)
 	return result;
 }
 
+Result CARD_DRAWER::Drawer::StartUntilGetCard(vector<int> card_need)
+{
+	
+}
+
 Result CARD_DRAWER::Drawer::StartUntilLimit(int limit)
 {
 	now = 0;
-
-	return Draw(limit);
+	vector<int> cards = Draw(limit);
+	return Result(cards.size(),cards);
 }
 
 void CARD_DRAWER::Drawer::SetRule(Rule rule)

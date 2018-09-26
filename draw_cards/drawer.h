@@ -45,7 +45,8 @@ namespace CARD_DRAWER
 	public:
 		std::vector<int> card_get_;
 		int num_;
-		Result(int n,std::vector<int>) :
+		Result(int n,std::vector<int> card_get) :
+			num_(n),card_get_(card_get)
 		{
 		}
 	};
@@ -60,7 +61,7 @@ namespace CARD_DRAWER
 		std::vector<int> Draw(int n);
 		// 仅负责抽，不负责统计
 	public:
-		Result StartUntilGetCard(vector<int> id);
+		Result StartUntilGetCard(vector<int> card_need);
 		Result StartUntilLimit(int limit);
 		void SetRule(Rule rule);
 		void AddCard(int card);  // 仅输入id
