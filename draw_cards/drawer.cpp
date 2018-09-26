@@ -56,7 +56,8 @@ int CARD_DRAWER::Group::ReturnCardByRandom()
 	return result;
 }
 
-CARD_DRAWER::Rule::Rule(bool if_limit, int limit, Group limit_group,bool limit_group_return_random):
+CARD_DRAWER::Rule::Rule(int draw_cards_num,bool if_limit, int limit, Group limit_group,bool limit_group_return_random):
+	draw_cards_num_(draw_cards_num),
 	if_limit_(if_limit),
 	limit_(limit),
 	limit_group_(limit_group),
@@ -65,8 +66,9 @@ CARD_DRAWER::Rule::Rule(bool if_limit, int limit, Group limit_group,bool limit_g
 	assert(if_limit);
 }
 // ½öÏÞfalse
-CARD_DRAWER::Rule::Rule(bool if_limit):
-if_limit_(if_limit)
+CARD_DRAWER::Rule::Rule(int draw_cards_num,bool if_limit):
+	draw_cards_num_(draw_cards_num),
+	if_limit_(if_limit)
 {
 	assert(!if_limit);
 }
@@ -122,13 +124,27 @@ std::vector<int> CARD_DRAWER::Drawer::Draw(int n)
 
 Result CARD_DRAWER::Drawer::StartUntilGetCard(vector<int> card_need)
 {
-	
+	map<int, bool> if_out;
+	for (auto it : card_need)
+	{
+		if_out[it] = false;
+	}
+	bool flag = false;
+	while (!flag)
+	{
+		
+	}
 }
 
 Result CARD_DRAWER::Drawer::StartUntilLimit(int limit)
 {
+	vector<int> cards_drawed;
 	now = 0;
-	vector<int> cards = Draw(limit);
+	while (limit - now <= rule_.draw_cards_num_)
+	{
+		vector<int> temp = Draw(rule_.draw_cards_num_);
+	}
+	 
 	return Result(cards.size(),cards);
 }
 

@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <random>
 #include <ctime>
+#include <map>
 namespace CARD_DRAWER
 {
 	class Card
@@ -37,8 +38,9 @@ namespace CARD_DRAWER
 		bool limit_group_return_random_;
 		bool draws_protect_;
 		int draws_protect_limit_;
-		Rule(bool if_limit,int limit,Group limit_group,bool limit_group_return_random);
-		Rule(bool if_limit);
+		int draw_cards_num_;
+		Rule(int draw_cards_num,bool if_limit,int limit,Group limit_group,bool limit_group_return_random);
+		Rule(int draw_cards_num,bool if_limit);
 	};
 	class Result
 	{
