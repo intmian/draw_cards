@@ -102,6 +102,11 @@ int CARD_DRAWER::Drawer::Draw()
 		double card_chance = Card::GetCard(id).GetChance;
 		if (card_chance >= result)
 		{
+			// 保底重置机制
+			if (in_group(id))
+			{
+				now = 0;
+			}
 			return id;
 		}
 		else
@@ -120,6 +125,18 @@ std::vector<int> CARD_DRAWER::Drawer::Draw(int n)
 		result.push_back(Draw());  // 关于其他的规则全部体现在draw 不带参的方法中
 	}
 	return result;
+}
+
+bool CARD_DRAWER::Drawer::in_group(int id)
+{
+	for (auto card : rule_.limit_group_.cards_)
+	{
+		if (id == card)
+		{
+			return false;
+		}
+	}
+	return false;
 }
 
 Result CARD_DRAWER::Drawer::StartUntilGetCard(vector<int> card_need)
@@ -143,8 +160,12 @@ Result CARD_DRAWER::Drawer::StartUntilLimit(int limit)
 	while (limit - now <= rule_.draw_cards_num_)
 	{
 		vector<int> temp = Draw(rule_.draw_cards_num_);
+		now += rule_.draw_cards_num_;
 	}
-	 
+	for (int i = 0; i < limit % rule_.draw_cards_num_)
+	{
+
+	}
 	return Result(cards.size(),cards);
 }
 

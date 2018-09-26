@@ -23,8 +23,8 @@ namespace CARD_DRAWER
 	class Group
 	{
 	private:
-		std::vector<int> cards_;
 	public:
+		std::vector<int> cards_;
 		void AddCard(int id);
 		int ReturnCardByChance();
 		int ReturnCardByRandom();
@@ -58,10 +58,11 @@ namespace CARD_DRAWER
 		Rule& rule_;
 		std::vector<int> cards_;
 		int now;  // 保底计数 抽前记得置零
-		int Draw();
+		int Draw();  // 保底归他
 		double chance_sum_;
-		std::vector<int> Draw(int n);
+		std::vector<int> Draw(int n);  // 多抽奖励归他
 		// 仅负责抽，不负责统计
+		bool in_group(int id);
 	public:
 		Result StartUntilGetCard(vector<int> card_need);
 		Result StartUntilLimit(int limit);
