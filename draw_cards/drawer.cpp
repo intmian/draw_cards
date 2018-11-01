@@ -157,14 +157,14 @@ Result CARD_DRAWER::Drawer::StartUntilLimit(int limit)
 {
 	vector<int> cards_drawed;
 	now = 0;
-	while (limit - now <= rule_.draw_cards_num_)
+	while (limit - now <= rule_.draw_cards_num_ && limit >= rule_.draw_cards_num_)
 	{
 		vector<int> temp = Draw(rule_.draw_cards_num_);
 		now += rule_.draw_cards_num_;
 	}
-	for (int i = 0; i < limit % rule_.draw_cards_num_)
+	for (int i = 0; i < limit % rule_.draw_cards_num_;i++)
 	{
-
+		// TODO
 	}
 	return Result(cards.size(),cards);
 }
