@@ -6,6 +6,7 @@
 #include <random>
 #include <ctime>
 #include <map>
+
 namespace CARD_DRAWER
 {
 	class Card
@@ -16,9 +17,10 @@ namespace CARD_DRAWER
 		double chance_;
 	public:
 		double GetChance();
-		static std::vector<Card> cards;
+		static std::vector<Card> cards;  // 全局的卡库
 		static Card& GetCard(int id);  // id同索引
 		Card(int id,std::string name,double chance);
+		// chance代表了权重
 	};
 	class Group
 	{
@@ -27,19 +29,26 @@ namespace CARD_DRAWER
 		std::vector<int> cards_;
 		void AddCard(int id);
 		int ReturnCardByChance();
+		// 根据概率返回卡
 		int ReturnCardByRandom();
+		// 随机从卡组里返回卡
 	};
 	class Rule
 	{
 	public:
-		bool if_limit_;
-		int limit_;
-		Group limit_group_;
-		bool limit_group_return_random_;
-		bool draws_protect_;
-		int draws_protect_limit_;
-		int draw_cards_num_;
-		Rule(int draw_cards_num,bool if_limit,int limit,Group limit_group,bool limit_group_return_random);
+		bool if_limit_;  // 保底
+		int limit_;  // 保底次数 倒数制
+		Group limit_group_;  // 保底抽取的组
+		bool limit_group_return_random_;  // 随机返回或者按照概率 同时包括多抽以及保底
+		bool if_draws_protect_;  // 多抽必出
+		Group draws_group_;  //多抽保底区
+		int draw_cards_num_;  // 抽了多少卡
+		Rule(int draw_cards_num,
+			bool if_limit, int limit,
+			Group limit_group,
+			bool if_draws_protect,
+			Group draws_group,
+			bool limit_group_return_random);
 		Rule(int draw_cards_num,bool if_limit);
 	};
 	class Result
@@ -64,7 +73,7 @@ namespace CARD_DRAWER
 		// 仅负责抽，不负责统计
 		bool in_group(int id);
 	public:
-		Result StartUntilGetCard(vector<int> card_need);
+		Result StartUntilGetCard(std::vector<int> card_need);
 		Result StartUntilLimit(int limit);
 		void SetRule(Rule rule);
 		void AddCard(int card);  // 仅输入id

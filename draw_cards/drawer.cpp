@@ -119,10 +119,16 @@ int CARD_DRAWER::Drawer::Draw()
 
 std::vector<int> CARD_DRAWER::Drawer::Draw(int n)
 {
+	assert(n > 0);
+	n--;
 	vector<int> result;
 	while (n--)
 	{
 		result.push_back(Draw());  // 关于其他的规则全部体现在draw 不带参的方法中
+	}
+	if (rule_.if_draws_protect_)
+	{
+		result.push_back(rule_.)
 	}
 	return result;
 }
@@ -166,7 +172,7 @@ Result CARD_DRAWER::Drawer::StartUntilLimit(int limit)
 	{
 		// TODO
 	}
-	return Result(cards.size(),cards);
+	return Result(cards_drawed.size(), cards_drawed);
 }
 
 void CARD_DRAWER::Drawer::SetRule(Rule rule)
