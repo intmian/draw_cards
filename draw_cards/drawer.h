@@ -43,8 +43,10 @@ namespace CARD_DRAWER
 		bool if_draws_protect_;  // 多抽必出
 		Group draws_group_;  //多抽保底区
 		int draw_cards_num_;  // 抽了多少卡
-		Rule(int draw_cards_num,
-			bool if_limit, int limit,
+		Rule(
+			int draw_cards_num,
+			bool if_limit, 
+			int limit,
 			Group limit_group,
 			bool if_draws_protect,
 			Group draws_group,

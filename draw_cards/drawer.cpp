@@ -56,14 +56,24 @@ int CARD_DRAWER::Group::ReturnCardByRandom()
 	return result;
 }
 
-CARD_DRAWER::Rule::Rule(int draw_cards_num,bool if_limit, int limit, Group limit_group,bool limit_group_return_random):
+CARD_DRAWER::Rule::Rule(
+	int draw_cards_num,
+	bool if_limit, 
+	int limit, 
+	Group limit_group,
+	bool if_draws_protect,
+	Group draws_group,
+	bool limit_group_return_random
+	):
 	draw_cards_num_(draw_cards_num),
 	if_limit_(if_limit),
 	limit_(limit),
 	limit_group_(limit_group),
+	if_draws_protect_(if_draws_protect),
+	draws_group_(draws_group),
 	limit_group_return_random_(limit_group_return_random)
 {
-	assert(if_limit);
+	assert(if_limit);  
 }
 // ½öÏÞfalse
 CARD_DRAWER::Rule::Rule(int draw_cards_num,bool if_limit):
@@ -128,7 +138,7 @@ std::vector<int> CARD_DRAWER::Drawer::Draw(int n)
 	}
 	if (rule_.if_draws_protect_)
 	{
-		result.push_back(rule_.)
+		// TODO
 	}
 	return result;
 }
